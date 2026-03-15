@@ -7,6 +7,7 @@ let xBallSpeed = 5;
 let yBallSpeed = 5;
 let diameter = 16;
 let radius = diameter / 2;
+let ballTail = [];
 
 let xPlayer = 10;
 let yPlayer = 200;
@@ -59,6 +60,22 @@ function VerifyCollision() {
 }
 
 function Ball(){
+  ballTail.push({x: xBall, y: yBall})
+  if(ballTail.length > 15){
+    ballTail.shift();
+  }
+  for (let i = 0; i < ballTail.length; i++){
+    let pos = ballTail[i];
+    noStroke();
+
+    let opacity = map(i, 0, ballTail.length, 0, 150);
+    let size = map(i, 0, ballTail.length, 0, diameter);
+
+    fill(255, opacity);
+    circle(pos.x, pos.y, size);
+  }
+
+  fill(255);
   circle(xBall, yBall, diameter);
   xBall += xBallSpeed;
   yBall += yBallSpeed;
@@ -85,6 +102,17 @@ function Player(){
     yPlayer = height - lenPlayer;
   } else if(yPlayer < 0){
     yPlayer = 0;
+  }
+
+  if (mouseIsPressed) {
+
+    if (mouseX > 20 && mouseX < 100 && mouseY > height - 130 && mouseY < height - 80) {
+      yPlayer -= 6;
+    }
+    
+    if (mouseX > 20 && mouseX < 100 && mouseY > height - 60 && mouseY < height - 10) {
+      yPlayer += 6;
+    }
   }
 }
 
