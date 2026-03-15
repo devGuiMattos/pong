@@ -31,12 +31,28 @@ function draw() {
   VerifyCollision();
   Points();
 }
+function Reset(){
+    xBall = 300;
+    yBall = 200;
 
+    let savedXSpeed = xBallSpeed;
+    let savedYSpeed = yBallSpeed;
+    xBallSpeed = 0;
+    yBallSpeed = 0;
+    ballTrail = [];
+
+    setTimeout(function(){
+        xBallSpeed = -savedXSpeed;
+        yBallSpeed = -savedYSpeed;
+    }, 1500)
+}
 function Points(){
   if(xBall + radius > width){
     pPoints += 1;
+    Reset();
   } else if(xBall - radius < 0){
     ePoints += 1;
+    Reset();
   }
   text(pPoints, 250, 50);
   text(ePoints, 350, 50);
@@ -80,9 +96,6 @@ function Ball(){
   xBall += xBallSpeed;
   yBall += yBallSpeed;
   
-  if(xBall + radius > width || xBall - radius < 0){
-    xBallSpeed *= -1
-  }
   if(yBall + radius > height || yBall - radius < 0){
     yBallSpeed *= -1
   }
