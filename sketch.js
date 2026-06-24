@@ -39,7 +39,7 @@ function Reset(){
     let savedYSpeed = yBallSpeed;
     xBallSpeed = 0;
     yBallSpeed = 0;
-    ballTrail = [];
+    ballTail = [];
 
     setTimeout(function(){
         xBallSpeed = -savedXSpeed;
